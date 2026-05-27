@@ -22,8 +22,8 @@
 
         <div class="hero-content">
             <div class="avatar-frame">
-                <!-- TODO: 替换为你的正式头像 -->
-                <img src="https://sns-img-hw.xhscdn.com/1000g0082857630mfu0505oi88lnk0q9t5ll0kpo?imageView2/2/w/1080/format/webp" alt="头像" class="avatar">
+                <!-- TODO: 如需更换头像，替换 images/avatar.jpg -->
+                <img src="images/avatar.jpg" alt="头像" class="avatar">
             </div>
             <h1 class="glitch-text" data-text="高赵洋">高赵洋</h1>
             <p class="sub-glow">Mioice</p>
@@ -33,8 +33,8 @@
 
             <div class="hero-links">
                 <!-- TODO: 替换为你的 GitHub 链接 -->
-                <a href="https://github.com/yz173" target="_blank" class="neon-btn">GitHub</a>
-                <a href="mailto:yz17347413996@163.com" class="neon-btn">Email</a>
+                <a href="https://github.com/Mioice" target="_blank" class="neon-btn">GitHub</a>
+                <a href="#" class="neon-btn" id="email-btn">Email</a>
                 <!-- TODO: 可在此添加更多链接，如 掘金/CSDN/个人博客 -->
                 <!-- <a href="你的博客链接" target="_blank" class="neon-btn">Blog</a> -->
             </div>
@@ -75,11 +75,7 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">📧 邮箱</span>
-                    <span class="info-value">yz17347413996@163.com</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">📱 电话</span>
-                    <span class="info-value">(+86) 17347413996</span>
+                    <span class="info-value" id="email-display"></span>
                 </div>
                 <!-- TODO: 可在此增删信息项 -->
             </div>
@@ -201,6 +197,25 @@
         <p>© 2026 高赵洋 | Built with 💜</p>
         <!-- <p>Hosted on GitHub Pages</p> -->
     </footer>
+
+    <!-- ====================================================== -->
+    <!-- 防爬虫：邮箱通过 JS 拼接渲染                             -->
+    <!-- ====================================================== -->
+    <script>
+        (function() {
+            var user = 'yz17347413996';
+            var domain = '163.com';
+            var email = user + '@' + domain;
+
+            // 信息卡片邮箱
+            var displayEl = document.getElementById('email-display');
+            if (displayEl) displayEl.textContent = email;
+
+            // Hero 区邮件按钮
+            var btn = document.getElementById('email-btn');
+            if (btn) btn.href = 'mailto:' + email;
+        })();
+    </script>
 
 </body>
 </html>
