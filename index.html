@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>高赵洋 | Mioice - Java后端开发</title>
 </head>
 <body>
 
-    <!-- ====================================================== -->
-    <!-- HERO：全屏首屏，霓虹标题 + 头像 + 打字机副标题        -->
-    <!-- ====================================================== -->
+    <!-- ============================================================
+         HERO：全屏首屏 (PPT hero slide 结构 + 保留赛博特效)
+         ============================================================ -->
     <section class="hero">
         <!-- 背景装饰网格 -->
         <div class="grid-bg"></div>
-        <!-- 浮动粒子（纯 CSS） -->
+        <!-- 浮动粒子 -->
         <div class="particles">
             <span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span>
         </div>
 
+        <!-- Chrome 顶栏 (移植 PPT) -->
+        <div class="chrome">
+            <span>Mioice · 个人主页</span>
+            <span>PORTFOLIO</span>
+        </div>
+
         <div class="hero-content">
-            <div class="avatar-frame">
-                <!-- TODO: 如需更换头像，替换 images/avatar.jpg -->
+            <div class="avatar-frame" data-anim>
                 <img src="images/avatar.jpg" alt="头像" class="avatar">
             </div>
-            <h1 class="glitch-text" data-text="高赵洋">高赵洋</h1>
-            <p class="sub-glow">Mioice</p>
-            <!-- 打字机效果副标题 -->
-            <p class="typewriter">寻找 Java 后端开发实习 · 热爱技术 · 持续学习中</p>
-            <p class="hero-desc"># 海南大学 · 软件工程 · 2027届</p>
+            <h1 class="glitch-text h-hero" data-text="高赵洋" data-anim>高赵洋</h1>
+            <p class="sub-glow" data-anim>Mioice</p>
+            <p class="typewriter" data-anim>寻找 Java 后端开发实习 · 热爱技术 · 持续学习中</p>
+            <p class="meta" style="margin-top:4px" data-anim># 海南大学 · 软件工程 · 2027届</p>
 
-            <div class="hero-links">
-                <!-- TODO: 替换为你的 GitHub 链接 -->
+            <div class="hero-links" data-anim>
                 <a href="https://github.com/Mioice" target="_blank" class="neon-btn">GitHub</a>
                 <a href="#" class="neon-btn" id="email-btn">Email</a>
-                <!-- TODO: 可在此添加更多链接，如 掘金/CSDN/个人博客 -->
-                <!-- <a href="你的博客链接" target="_blank" class="neon-btn">Blog</a> -->
             </div>
         </div>
 
@@ -47,173 +51,285 @@
         </div>
     </section>
 
-    <!-- ====================================================== -->
-    <!-- ABOUT：个人简介 + 教育背景                              -->
-    <!-- ====================================================== -->
-    <section class="section" id="about">
-        <h2 class="section-title">
-            <span class="title-deco">&lt;</span>
-            About
-            <span class="title-deco">/&gt;</span>
-        </h2>
-
-        <div class="about-grid">
-            <div class="about-card">
-                <p>你好！我是 <strong>高赵洋</strong>，目前就读于 <strong>海南大学（211）</strong> 软件工程专业，将于 2027 年毕业。</p>
-                <p>热爱后端技术，尤其是 Java 体系，喜欢折腾开源、研究中间件原理。正在寻找 <strong>Java 后端开发</strong> 实习岗位。</p>
-                <!-- TODO: 可修改上面的个人介绍文案 -->
-            </div>
-
-            <div class="info-card">
-                <div class="info-item">
-                    <span class="info-label">🎓 学校</span>
-                    <span class="info-value">海南大学 · 软件工程</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">📅 年限</span>
-                    <span class="info-value">2023 - 2027</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">📧 邮箱</span>
-                    <span class="info-value" id="email-display"></span>
-                </div>
-                <!-- TODO: 可在此增删信息项 -->
-            </div>
+    <!-- ============================================================
+         ABOUT：个人简介 (PPT split + stat-card 布局)
+         ============================================================ -->
+    <section class="slide-section" id="about">
+        <div class="chrome" data-anim>
+            <span>关于 · About</span>
+            <span>01 / 04</span>
         </div>
-    </section>
 
-    <!-- ====================================================== -->
-    <!-- SKILLS：技能标签云                                      -->
-    <!-- TODO: 按需增删技能标签                                   -->
-    <!-- ====================================================== -->
-    <section class="section" id="skills">
-        <h2 class="section-title">
-            <span class="title-deco">&lt;</span>
-            Skills
-            <span class="title-deco">/&gt;</span>
-        </h2>
+        <div class="frame">
+            <div class="kicker" data-anim>个人简介</div>
+            <div class="h-xl" style="margin-bottom:4vh" data-anim>关于我</div>
 
-        <div class="skills-cloud">
-            <span class="skill-tag" data-color="cyan">Java</span>
-            <span class="skill-tag" data-color="pink">Spring Boot</span>
-            <span class="skill-tag" data-color="purple">Spring Cloud</span>
-            <span class="skill-tag" data-color="cyan">MySQL</span>
-            <span class="skill-tag" data-color="pink">Redis</span>
-            <span class="skill-tag" data-color="purple">RocketMQ</span>
-            <span class="skill-tag" data-color="cyan">MyBatis</span>
-            <span class="skill-tag" data-color="pink">JVM</span>
-            <span class="skill-tag" data-color="purple">JUC</span>
-            <span class="skill-tag" data-color="cyan">SpringAI</span>
-            <span class="skill-tag" data-color="pink">PGvector</span>
-            <span class="skill-tag" data-color="purple">Lua</span>
-            <span class="skill-tag" data-color="cyan">Caffeine</span>
-            <span class="skill-tag" data-color="pink">Git</span>
-            <!-- TODO: 添加或删除技能标签 -->
-        </div>
-    </section>
-
-    <!-- ====================================================== -->
-    <!-- PROJECTS：项目展示（两张霓虹卡片）                       -->
-    <!-- TODO: 替换为你的实际项目内容                            -->
-    <!-- ====================================================== -->
-    <section class="section" id="projects">
-        <h2 class="section-title">
-            <span class="title-deco">&lt;</span>
-            Projects
-            <span class="title-deco">/&gt;</span>
-        </h2>
-
-        <!--
-            =====================================================
-            项目卡片模板：复制 .project-card 结构即可新增项目
-            必改字段：h3 标题、.project-desc 描述、技术栈标签
-            可选：替换 .project-thumb 为实际截图
-            =====================================================
-        -->
-        <div class="projects-grid">
-
-            <!-- ---------- 项目卡片 1：AI Agent ---------- -->
-            <div class="project-card" data-glow="cyan">
-                <!-- TODO: 替换为项目截图或删除此 div -->
-                <div class="project-thumb">
-                    <div class="thumb-placeholder">AI</div>
-                </div>
-                <div class="project-body">
-                    <h3>AI Agent — 电商售后智能工单处理</h3>
-                    <p class="project-date">2026.01 - 2026.03</p>
-                    <p class="project-desc">
-                        面向电商平台售后场景，构建一套 AI Agent 智能工单处理系统，将退款、换货、维修等售后业务处理能力抽象为可配置组件，通过数据库持久化管理和动态编排，按不同商品类目与售后类型组装定制化处理链路。
+            <div class="split">
+                <div data-anim>
+                    <p class="about-bio">
+                        你好！我是 <strong>高赵洋</strong>，目前就读于 <strong>海南大学（211）</strong> 软件工程专业，将于 2027 年毕业。
                     </p>
-                    <div class="project-tags">
-                        <span>SpringAI</span><span>RAG</span><span>MCP</span>
-                        <span>Spring Boot</span><span>MyBatis</span><span>PGvector</span>
-                    </div>
-                    <div class="project-links">
-                        <!-- TODO: 替换为实际项目链接 -->
-                        <a href="#" target="_blank" class="project-link">🔗 GitHub</a>
-                        <!-- <a href="#" target="_blank" class="project-link">🌐 Demo</a> -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- ---------- 项目卡片 2：本地生活优惠服务平台 ---------- -->
-            <div class="project-card" data-glow="pink">
-                <!-- TODO: 替换为项目截图 -->
-                <div class="project-thumb">
-                    <div class="thumb-placeholder">LF</div>
-                </div>
-                <div class="project-body">
-                    <h3>本地生活优惠服务平台</h3>
-                    <p class="project-date">2025.12 - 2026.03</p>
-                    <p class="project-desc">
-                        基于黑马点评项目扩展开发，实现商家优惠券发放、秒杀活动管理、店铺智能咨询等核心功能，覆盖用户从发现优惠到下单核销的完整流程。
+                    <p class="about-bio" style="margin-top:2vh">
+                        热爱后端技术，尤其是 Java 体系，喜欢折腾开源、研究中间件原理。正在寻找 <strong>Java 后端开发</strong> 实习岗位。
                     </p>
-                    <div class="project-tags">
-                        <span>SpringBoot</span><span>MySQL</span><span>Redis</span>
-                        <span>RocketMQ</span><span>Caffeine</span><span>Lua</span>
+
+                    <div class="callout" style="margin-top:3vh" data-anim>
+                        "保持好奇，持续学习。用代码构建高效、可靠的后端系统。"
+                        <span class="callout-src">— 高赵洋</span>
                     </div>
-                    <div class="project-links">
-                        <!-- TODO: 替换为实际项目链接 -->
-                        <a href="#" target="_blank" class="project-link">🔗 GitHub</a>
+                </div>
+
+                <div class="grid-4" style="gap:2vh 2vw" data-anim>
+                    <div class="stat-card">
+                        <div class="stat-label">学校</div>
+                        <div class="stat-nb" style="font-size:clamp(28px,4vw,52px)">HNU</div>
+                        <div class="stat-note">海南大学 · 211 · 软件工程</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">年限</div>
+                        <div class="stat-nb" style="font-size:clamp(28px,4vw,52px)">2027</div>
+                        <div class="stat-note">2023 - 2027 · 预计毕业</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">目标</div>
+                        <div class="stat-nb" style="font-size:clamp(28px,4vw,52px)">实习</div>
+                        <div class="stat-note">Java 后端开发 · 即刻到岗</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">邮箱</div>
+                        <div class="stat-nb" style="font-size:clamp(28px,4vw,52px)">@</div>
+                        <div class="stat-note" id="email-display"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--
-                TODO: 如需添加第三个项目，在此粘贴 .project-card 结构
-                示例：
-                <div class="project-card" data-glow="purple">
-                    ...
-                </div>
-            -->
-
+        <div class="foot" data-anim>
+            <span>海南大学 · 软件工程 2027</span>
         </div>
     </section>
 
-    <!-- ====================================================== -->
-    <!-- FOOTER                                                  -->
-    <!-- ====================================================== -->
+    <!-- ============================================================
+         SKILLS：技能体系 (PPT pipeline + 保留标签云)
+         ============================================================ -->
+    <section class="slide-section" id="skills">
+        <div class="chrome" data-anim>
+            <span>技能 · Skills</span>
+            <span>02 / 04</span>
+        </div>
+
+        <div class="frame">
+            <div class="kicker" data-anim>技术栈</div>
+            <div class="h-xl" style="margin-bottom:2vh" data-anim>技能体系</div>
+
+            <div class="pipeline-section" data-anim>
+                <div class="pipeline-label">后端开发 · Backend</div>
+                <div class="pipeline" data-cols="4">
+                    <div class="step"><div class="step-nb">01</div><div class="step-title">Java</div><div class="step-desc">核心语言 · JVM · JUC</div></div>
+                    <div class="step"><div class="step-nb">02</div><div class="step-title">Spring Boot</div><div class="step-desc">微服务开发框架</div></div>
+                    <div class="step"><div class="step-nb">03</div><div class="step-title">Spring Cloud</div><div class="step-desc">分布式系统生态</div></div>
+                    <div class="step"><div class="step-nb">04</div><div class="step-title">MyBatis</div><div class="step-desc">ORM 数据持久化</div></div>
+                </div>
+            </div>
+
+            <div class="pipeline-section" data-anim>
+                <div class="pipeline-label">中间件 & 数据 · Middleware & Data</div>
+                <div class="pipeline" data-cols="4">
+                    <div class="step"><div class="step-nb">05</div><div class="step-title">MySQL</div><div class="step-desc">关系型数据库</div></div>
+                    <div class="step"><div class="step-nb">06</div><div class="step-title">Redis</div><div class="step-desc">缓存 · 分布式锁</div></div>
+                    <div class="step"><div class="step-nb">07</div><div class="step-title">RocketMQ</div><div class="step-desc">消息队列</div></div>
+                    <div class="step"><div class="step-nb">08</div><div class="step-title">PGvector</div><div class="step-desc">向量数据库</div></div>
+                </div>
+            </div>
+
+            <div class="pipeline-section" data-anim>
+                <div class="pipeline-label">工具 & 拓展 · Tools & Others</div>
+                <div class="pipeline" data-cols="3">
+                    <div class="step"><div class="step-nb">09</div><div class="step-title">SpringAI</div><div class="step-desc">AI 应用开发</div></div>
+                    <div class="step"><div class="step-nb">10</div><div class="step-title">Caffeine</div><div class="step-desc">本地缓存</div></div>
+                    <div class="step"><div class="step-nb">11</div><div class="step-title">Lua / Git</div><div class="step-desc">脚本 · 版本控制</div></div>
+                </div>
+            </div>
+
+            <!-- 保留原有的标签云作为补充展示 -->
+            <div class="pipeline-section" data-anim>
+                <div class="pipeline-label">全栈一览 · Full Stack Overview</div>
+                <div class="skills-cloud">
+                    <span class="skill-tag" data-color="cyan">Java</span>
+                    <span class="skill-tag" data-color="pink">Spring Boot</span>
+                    <span class="skill-tag" data-color="purple">Spring Cloud</span>
+                    <span class="skill-tag" data-color="cyan">MySQL</span>
+                    <span class="skill-tag" data-color="pink">Redis</span>
+                    <span class="skill-tag" data-color="purple">RocketMQ</span>
+                    <span class="skill-tag" data-color="cyan">MyBatis</span>
+                    <span class="skill-tag" data-color="pink">JVM</span>
+                    <span class="skill-tag" data-color="purple">JUC</span>
+                    <span class="skill-tag" data-color="cyan">SpringAI</span>
+                    <span class="skill-tag" data-color="pink">PGvector</span>
+                    <span class="skill-tag" data-color="purple">Lua</span>
+                    <span class="skill-tag" data-color="cyan">Caffeine</span>
+                    <span class="skill-tag" data-color="pink">Git</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="foot" data-anim>
+            <span>持续学习 · 不断精进</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PROJECTS：项目展示 (PPT grid-2-6-6 + frame-img)
+         ============================================================ -->
+    <section class="slide-section" id="projects">
+        <div class="chrome" data-anim>
+            <span>项目 · Projects</span>
+            <span>03 / 04</span>
+        </div>
+
+        <div class="frame">
+            <div class="kicker" data-anim>项目实践</div>
+            <div class="h-xl" style="margin-bottom:4vh" data-anim>项目展示</div>
+
+            <div class="grid-2-6-6" style="align-items:stretch">
+                <!-- 项目卡片 1 -->
+                <div class="project-card" data-glow="cyan" data-anim>
+                    <div class="project-thumb">
+                        <div class="thumb-placeholder">AI</div>
+                    </div>
+                    <div class="project-body">
+                        <h3>AI Agent — 电商售后智能工单处理</h3>
+                        <p class="project-date">2026.01 - 2026.03</p>
+                        <p class="project-desc">
+                            面向电商平台售后场景，构建一套 AI Agent 智能工单处理系统，将退款、换货、维修等售后业务处理能力抽象为可配置组件，通过数据库持久化管理和动态编排，按不同商品类目与售后类型组装定制化处理链路。
+                        </p>
+                        <div class="project-tags">
+                            <span>SpringAI</span><span>RAG</span><span>MCP</span>
+                            <span>Spring Boot</span><span>MyBatis</span><span>PGvector</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目卡片 2 -->
+                <div class="project-card" data-glow="pink" data-anim>
+                    <div class="project-thumb">
+                        <div class="thumb-placeholder">LF</div>
+                    </div>
+                    <div class="project-body">
+                        <h3>本地生活优惠服务平台</h3>
+                        <p class="project-date">2025.12 - 2026.03</p>
+                        <p class="project-desc">
+                            基于黑马点评项目扩展开发，实现商家优惠券发放、秒杀活动管理、店铺智能咨询等核心功能，覆盖用户从发现优惠到下单核销的完整流程。
+                        </p>
+                        <div class="project-tags">
+                            <span>SpringBoot</span><span>MySQL</span><span>Redis</span>
+                            <span>RocketMQ</span><span>Caffeine</span><span>Lua</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="foot" data-anim>
+            <span>部分项目代码已开源</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT：联系 (收束页)
+         ============================================================ -->
+    <section class="slide-section" id="contact">
+        <div class="chrome" data-anim>
+            <span>联系 · Contact</span>
+            <span>04 / 04</span>
+        </div>
+
+        <div class="frame" style="display:flex; align-items:center; justify-content:center; text-align:center">
+            <div>
+                <div class="kicker" data-anim>Get In Touch</div>
+                <div class="h-hero" style="margin-bottom:3vh" data-anim>
+                    保持连接
+                </div>
+                <div class="lead" style="max-width:50vw; margin:0 auto 4vh" data-anim>
+                    如果你有 Java 后端开发的实习机会，或者想交流技术，欢迎联系我。
+                </div>
+                <div class="meta-row" style="justify-content:center" data-anim>
+                    <a href="https://github.com/Mioice" target="_blank" style="color:var(--cyan);text-decoration:none">GitHub</a>
+                    <span>·</span>
+                    <a href="#" id="email-btn-2" style="color:var(--cyan);text-decoration:none">Email</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="foot" data-anim>
+            <span>高赵洋 · Mioice</span>
+            <span>2026</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
     <footer>
-        <p>© 2026 高赵洋 | Built with 💜</p>
-        <!-- <p>Hosted on GitHub Pages</p> -->
+        <p>&copy; 2026 高赵洋 | Built with passion</p>
     </footer>
 
-    <!-- ====================================================== -->
-    <!-- 防爬虫：邮箱通过 JS 拼接渲染                             -->
-    <!-- ====================================================== -->
+    <!-- ============================================================
+         防爬虫：邮箱通过 JS 拼接渲染
+         ============================================================ -->
     <script>
         (function() {
             var user = 'yz17347413996';
             var domain = '163.com';
             var email = user + '@' + domain;
 
-            // 信息卡片邮箱
+            // About 卡片邮箱
             var displayEl = document.getElementById('email-display');
             if (displayEl) displayEl.textContent = email;
 
             // Hero 区邮件按钮
             var btn = document.getElementById('email-btn');
             if (btn) btn.href = 'mailto:' + email;
+
+            // Contact 区邮件链接
+            var btn2 = document.getElementById('email-btn-2');
+            if (btn2) btn2.href = 'mailto:' + email;
+        })();
+    </script>
+
+    <!-- ============================================================
+         入场动画 (Intersection Observer + CSS transition)
+         ============================================================ -->
+    <script>
+        (function() {
+            var animEls = document.querySelectorAll('[data-anim]');
+            if (!animEls.length) return;
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('anim-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+                animEls.forEach(function(el) {
+                    observer.observe(el);
+                });
+            } else {
+                // fallback: show all
+                animEls.forEach(function(el) {
+                    el.classList.add('anim-visible');
+                });
+            }
         })();
     </script>
 

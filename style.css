@@ -1,17 +1,13 @@
 /* ============================================================
    赛博二次元 · Cyber Anime 风格主题
-   配色方案：
-     - 背景: #0a0e27 (深空蓝紫)
-     - 主霓虹: #00f0ff (青)
-     - 副霓虹: #ff2d95 (粉)
-     - 点缀紫: #7b2ffc (紫)
-     - 文字:   #e0e0e0
+   基于 PPT 排版体系重构 · 保留霓虹视觉标识
    ============================================================ */
 
 /* ============================================================
    0. CSS 变量 & 重置
    ============================================================ */
 :root {
+    /* ---------- 赛博配色（保留） ---------- */
     --bg-primary: #0a0e27;
     --bg-card: rgba(255, 255, 255, 0.03);
     --cyan: #00f0ff;
@@ -19,54 +15,413 @@
     --purple: #7b2ffc;
     --text-primary: #e0e0e0;
     --text-secondary: #8888aa;
-    --font-cn: 'Microsoft YaHei', 'PingFang SC', -apple-system, sans-serif;
-    --font-mono: 'Cascadia Code', 'Consolas', monospace;
+
+    /* ---------- 字体栈（移植自 PPT） ---------- */
+    --mono: 'Cascadia Code', 'IBM Plex Mono', ui-monospace, monospace;
+    --serif-en: 'Playfair Display', 'Source Serif 4', Georgia, serif;
+    --serif-body-en: 'Source Serif 4', Georgia, serif;
+    --serif-zh: 'Noto Serif SC', source-han-serif-sc, serif;
+    --sans-zh: 'Microsoft YaHei', 'PingFang SC', -apple-system, sans-serif;
+
+    /* ---------- 发光变量 ---------- */
     --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
     --glow-pink: 0 0 20px rgba(255, 45, 149, 0.3);
     --glow-purple: 0 0 20px rgba(123, 47, 252, 0.3);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: var(--font-cn);
+    font-family: var(--sans-zh);
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.7;
     overflow-x: hidden;
     /* 扫描线 overlay */
     background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255, 255, 255, 0.008) 2px,
-        rgba(255, 255, 255, 0.008) 4px
+        0deg, transparent, transparent 2px,
+        rgba(255, 255, 255, 0.008) 2px, rgba(255, 255, 255, 0.008) 4px
     );
 }
 
-/* 选中高亮 */
 ::selection {
     background: var(--cyan);
     color: var(--bg-primary);
 }
 
 /* ============================================================
-   1. HERO 区域 - 全屏首屏
+   1. 排印系统 · Typography (移植自 PPT)
+   ============================================================ */
+.kicker {
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.85vw, 14px);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 2.6vh;
+}
+
+.h-hero {
+    font-family: var(--serif-zh);
+    font-weight: 900;
+    font-size: clamp(42px, 6.5vw, 90px);
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+}
+
+.h-xl {
+    font-family: var(--serif-zh);
+    font-weight: 700;
+    font-size: clamp(32px, 4.2vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+}
+
+.h-sub {
+    font-family: var(--serif-zh);
+    font-weight: 500;
+    font-size: clamp(20px, 2.2vw, 36px);
+    line-height: 1.25;
+    opacity: 0.7;
+}
+
+.h-md {
+    font-family: var(--serif-zh);
+    font-weight: 600;
+    font-size: clamp(18px, 1.8vw, 28px);
+    line-height: 1.3;
+}
+
+.lead {
+    font-family: var(--serif-zh);
+    font-weight: 400;
+    font-size: clamp(15px, 1.3vw, 22px);
+    line-height: 1.5;
+    opacity: 0.86;
+}
+
+.body-zh {
+    font-family: var(--sans-zh);
+    font-weight: 400;
+    font-size: clamp(14px, 1.05vw, 18px);
+    line-height: 1.75;
+    opacity: 0.82;
+    letter-spacing: 0.01em;
+}
+
+.meta {
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.8vw, 14px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.meta-row {
+    display: flex;
+    gap: 1.2em;
+    align-items: baseline;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.8vw, 14px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: clamp(10px, 0.7vw, 12px);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid currentColor;
+    opacity: 0.85;
+}
+
+.rule {
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.25;
+    margin: 3vh 0;
+}
+
+/* ============================================================
+   2. Chrome & Foot · 通栏元素 (移植自 PPT)
+   ============================================================ */
+.chrome {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.78vw, 13px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.62;
+    padding: 0 0 1.5vh 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 4vh;
+    position: relative;
+    z-index: 2;
+}
+
+.foot {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.78vw, 13px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    padding-top: 4vh;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================================
+   3. 布局网格 · Layout Grids (移植自 PPT)
+   ============================================================ */
+.frame {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 3vw 4vw;
+    flex: 1;
+    align-content: center;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3vh 4vw;
+    flex: 1;
+    align-content: center;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.4vw;
+    flex: 1;
+    align-content: center;
+}
+
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3vw;
+    flex: 1;
+    align-items: center;
+}
+
+.split-55 {
+    display: grid;
+    grid-template-columns: 55fr 45fr;
+    gap: 4vw;
+    flex: 1;
+    align-items: stretch;
+}
+
+.grid-2-7-5 {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 3vw 4vh;
+    align-items: start;
+}
+
+.grid-2-6-6 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3vw 4vh;
+    align-items: start;
+}
+
+/* ============================================================
+   4. 组件 · Components (移植自 PPT)
+   ============================================================ */
+
+/* ---------- Stat Card ---------- */
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+    align-items: flex-start;
+    padding: 1.6vh 1.2vw 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-top-color: var(--cyan);
+}
+
+.stat-card .stat-label {
+    font-family: var(--mono);
+    font-size: clamp(10px, 0.72vw, 13px);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    opacity: 0.55;
+}
+
+.stat-card .stat-nb {
+    font-family: var(--serif-en);
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 72px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    font-feature-settings: "tnum";
+    background: linear-gradient(135deg, var(--cyan), var(--pink));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-card .stat-note {
+    font-family: var(--sans-zh);
+    font-weight: 400;
+    font-size: clamp(12px, 0.95vw, 16px);
+    line-height: 1.5;
+    opacity: 0.72;
+    margin-top: 0.6vh;
+}
+
+.stat-card .stat-m {
+    font-family: var(--mono);
+    font-size: clamp(9px, 0.6vw, 11px);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.2vh;
+}
+
+/* ---------- Callout ---------- */
+.callout {
+    padding: 2.4vh 2vw;
+    border-left: 3px solid var(--cyan);
+    position: relative;
+    font-family: var(--serif-zh);
+    font-size: clamp(14px, 1.05vw, 18px);
+    line-height: 1.55;
+    opacity: 0.92;
+    background: rgba(0, 240, 255, 0.04);
+}
+
+.callout .callout-src {
+    display: block;
+    margin-top: 1.6vh;
+    font-family: var(--mono);
+    font-size: clamp(10px, 0.7vw, 12px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+/* ---------- Pipeline / Step ---------- */
+.pipeline-section {
+    margin-top: 3vh;
+    padding-top: 2.4vh;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.pipeline-section:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 2vh;
+}
+
+.pipeline-label {
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.78vw, 13px);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    opacity: 0.62;
+    margin-bottom: 2.2vh;
+}
+
+.pipeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.5vw;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vh;
+    padding-top: 1.4vh;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    transition: all 0.3s ease;
+}
+
+.step:hover {
+    border-top-color: var(--cyan);
+}
+
+.step-nb {
+    font-family: var(--serif-en);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(12px, 0.9vw, 16px);
+    opacity: 0.45;
+}
+
+.step-title {
+    font-family: var(--sans-zh);
+    font-weight: 700;
+    font-size: clamp(14px, 1.2vw, 20px);
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--cyan), var(--pink));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.step-desc {
+    font-family: var(--sans-zh);
+    font-weight: 400;
+    font-size: clamp(12px, 0.85vw, 15px);
+    line-height: 1.45;
+    opacity: 0.72;
+}
+
+/* ============================================================
+   5. Section 容器 (移植 PPT slide 概念)
+   ============================================================ */
+.slide-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 5vh 5vw 6vh;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* ============================================================
+   6. HERO 区域 · 保留原有特效 + 新结构
    ============================================================ */
 .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    padding: 5vh 5vw 6vh;
     overflow: hidden;
 }
 
@@ -85,7 +440,8 @@ body {
 .particles {
     position: absolute;
     inset: 0;
-    z-index: 0;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .particles span {
@@ -98,7 +454,6 @@ body {
     animation: float-particle 8s infinite ease-in-out;
 }
 
-/* 10 个粒子随机位置与延迟 */
 .particles span:nth-child(1)  { left: 10%; top: 20%; animation-delay: 0s; }
 .particles span:nth-child(2)  { left: 25%; top: 60%; animation-delay: 1s; width: 2px; height: 2px; background: var(--pink); box-shadow: 0 0 4px var(--pink); }
 .particles span:nth-child(3)  { left: 40%; top: 10%; animation-delay: 2s; }
@@ -118,16 +473,21 @@ body {
 /* ---------- Hero 内容 ---------- */
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 20px;
 }
 
-/* 头像 - 渐变环绕边框（纯 background 实现，兼容性好） */
+/* 头像 */
 .avatar-frame {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 24px;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 24px;
     border-radius: 50%;
     padding: 4px;
     background: linear-gradient(135deg, var(--cyan), var(--pink), var(--purple));
@@ -150,9 +510,8 @@ body {
     border: 3px solid var(--bg-primary);
 }
 
-/* 名字 - 霓虹渐变 + glitch 效果 */
+/* 名字 - 霓虹渐变 + glitch */
 .glitch-text {
-    font-size: 56px;
     font-weight: 900;
     letter-spacing: 6px;
     background: linear-gradient(135deg, var(--cyan), var(--pink), var(--purple));
@@ -164,7 +523,6 @@ body {
     margin-bottom: 4px;
 }
 
-/* glitch 伪元素 */
 .glitch-text::before,
 .glitch-text::after {
     content: attr(data-text);
@@ -204,25 +562,22 @@ body {
 }
 
 .sub-glow {
-    font-family: var(--font-mono);
-    font-size: 18px;
+    font-family: var(--mono);
+    font-size: clamp(14px, 1.1vw, 20px);
     color: var(--cyan);
     text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     margin-bottom: 8px;
     letter-spacing: 4px;
 }
 
-/* 打字机效果副标题 */
 .typewriter {
-    font-size: 16px;
+    font-size: clamp(13px, 1vw, 17px);
     color: var(--text-secondary);
     overflow: hidden;
     white-space: nowrap;
     border-right: 2px solid var(--cyan);
     width: 0;
-    animation:
-        typing 3s 0.5s forwards,
-        blink-caret 0.8s step-end infinite;
+    animation: typing 3s 0.5s forwards, blink-caret 0.8s step-end infinite;
     display: inline-block;
     margin-bottom: 8px;
 }
@@ -236,19 +591,13 @@ body {
     50% { border-color: transparent; }
 }
 
-.hero-desc {
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 28px;
-    letter-spacing: 2px;
-}
-
 /* ---------- 霓虹按钮 ---------- */
 .hero-links {
     display: flex;
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-top: 12px;
 }
 
 .neon-btn {
@@ -257,8 +606,8 @@ body {
     border: 1.5px solid var(--cyan);
     color: var(--cyan);
     text-decoration: none;
-    font-family: var(--font-mono);
-    font-size: 14px;
+    font-family: var(--mono);
+    font-size: clamp(12px, 0.85vw, 15px);
     letter-spacing: 2px;
     border-radius: 4px;
     position: relative;
@@ -276,25 +625,25 @@ body {
 /* ---------- 滚动指示 ---------- */
 .scroll-indicator {
     position: absolute;
-    bottom: 40px;
+    bottom: 6vh;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 .scroll-indicator span {
     display: block;
-    font-family: var(--font-mono);
-    font-size: 11px;
+    font-family: var(--mono);
+    font-size: 10px;
     color: var(--text-secondary);
     letter-spacing: 3px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .scroll-arrow {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border-right: 2px solid var(--cyan);
     border-bottom: 2px solid var(--cyan);
     transform: rotate(45deg);
@@ -309,110 +658,58 @@ body {
 }
 
 /* ============================================================
-   2. 通用区段
+   7. 区段标题 · Section Title
    ============================================================ */
-.section {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 100px 24px 80px;
-}
-
 .section-title {
-    font-family: var(--font-mono);
-    font-size: 28px;
+    font-family: var(--mono);
+    font-size: clamp(20px, 1.8vw, 30px);
     font-weight: 700;
-    margin-bottom: 48px;
-    text-align: center;
+    margin-bottom: 4vh;
     color: var(--cyan);
     text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
 }
 
 .title-deco {
     color: var(--pink);
-    font-size: 20px;
+    font-size: clamp(14px, 1.2vw, 22px);
 }
 
 /* ============================================================
-   3. ABOUT 区域
+   8. ABOUT 区段
    ============================================================ */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 24px;
-}
-
-.about-card,
-.info-card {
-    background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 32px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.about-card:hover,
-.info-card:hover {
-    border-color: rgba(0, 240, 255, 0.2);
-    box-shadow: var(--glow-cyan);
-}
-
-.about-card p {
-    font-size: 15px;
+.about-bio {
+    font-size: clamp(14px, 1.05vw, 18px);
     color: var(--text-primary);
-    margin-bottom: 16px;
     line-height: 1.8;
 }
 
-.about-card strong {
+.about-bio strong {
     color: var(--cyan);
 }
 
-.info-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.info-item:last-child {
-    border-bottom: none;
-}
-
-.info-label {
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.info-value {
-    color: var(--text-primary);
-    font-size: 14px;
-    font-family: var(--font-mono);
-}
-
 /* ============================================================
-   4. SKILLS 技能标签云
+   9. SKILLS 区段 · 保留标签云 + 新增 pipeline
    ============================================================ */
 .skills-cloud {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
+    margin-top: 2vh;
 }
 
 .skill-tag {
     display: inline-block;
     padding: 8px 20px;
     border-radius: 20px;
-    font-size: 13px;
-    font-family: var(--font-mono);
+    font-size: clamp(12px, 0.85vw, 15px);
+    font-family: var(--mono);
     letter-spacing: 1px;
     border: 1px solid;
     cursor: default;
     transition: all 0.3s ease;
 }
 
-/* 每个标签根据 data-color 显示不同霓虹色 */
 .skill-tag[data-color="cyan"] {
     color: var(--cyan);
     border-color: rgba(0, 240, 255, 0.2);
@@ -447,7 +744,7 @@ body {
 }
 
 /* ============================================================
-   5. PROJECTS 项目卡片
+   10. PROJECTS 区段 · 保留项目卡片 + PPT 框架
    ============================================================ */
 .projects-grid {
     display: grid;
@@ -455,17 +752,15 @@ body {
     gap: 28px;
 }
 
-/* 项目卡片 */
 .project-card {
     background: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
     backdrop-filter: blur(10px);
     transition: all 0.4s ease;
 }
 
-/* 卡片 hover 发光由 data-glow 控制 */
 .project-card[data-glow="cyan"]:hover {
     border-color: var(--cyan);
     box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
@@ -484,7 +779,6 @@ body {
     transform: translateY(-6px);
 }
 
-/* 项目缩略图占位 */
 .project-thumb {
     width: 100%;
     height: 180px;
@@ -492,15 +786,14 @@ body {
     position: relative;
 }
 
-/* TODO: 替换为实际项目截图后移除 .thumb-placeholder */
 .thumb-placeholder {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 40px;
+    font-family: var(--mono);
+    font-size: clamp(28px, 2.6vw, 44px);
     font-weight: 700;
     letter-spacing: 4px;
     background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(255, 45, 149, 0.05));
@@ -513,27 +806,26 @@ body {
 }
 
 .project-body h3 {
-    font-size: 17px;
+    font-size: clamp(15px, 1.1vw, 19px);
     font-weight: 700;
     margin-bottom: 6px;
     color: var(--text-primary);
 }
 
 .project-date {
-    font-size: 12px;
-    font-family: var(--font-mono);
+    font-size: clamp(11px, 0.75vw, 13px);
+    font-family: var(--mono);
     color: var(--text-secondary);
     margin-bottom: 12px;
 }
 
 .project-desc {
-    font-size: 14px;
+    font-size: clamp(13px, 0.9vw, 15px);
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 16px;
 }
 
-/* 技术栈标签 */
 .project-tags {
     display: flex;
     flex-wrap: wrap;
@@ -544,25 +836,24 @@ body {
 .project-tags span {
     display: inline-block;
     padding: 3px 10px;
-    font-size: 11px;
-    font-family: var(--font-mono);
+    font-size: clamp(10px, 0.7vw, 12px);
+    font-family: var(--mono);
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
     background: rgba(255, 255, 255, 0.03);
 }
 
-/* 项目链接 */
 .project-links {
     display: flex;
     gap: 12px;
 }
 
 .project-link {
-    font-size: 13px;
+    font-size: clamp(12px, 0.8vw, 14px);
     color: var(--cyan);
     text-decoration: none;
-    font-family: var(--font-mono);
+    font-family: var(--mono);
     transition: all 0.3s ease;
 }
 
@@ -572,12 +863,12 @@ body {
 }
 
 /* ============================================================
-   6. FOOTER
+   11. FOOTER
    ============================================================ */
 footer {
     text-align: center;
     padding: 40px 24px;
-    font-size: 13px;
+    font-size: clamp(12px, 0.8vw, 14px);
     color: var(--text-secondary);
     border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
@@ -587,11 +878,48 @@ footer p {
 }
 
 /* ============================================================
-   7. 响应式
+   12. 动画框架 · data-anim (移植自 PPT)
+   ============================================================ */
+[data-anim] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-anim].anim-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-anim="left"] {
+    transform: translateX(-24px);
+}
+[data-anim="left"].anim-visible {
+    transform: translateX(0);
+}
+
+[data-anim="right"] {
+    transform: translateX(24px);
+}
+[data-anim="right"].anim-visible {
+    transform: translateX(0);
+}
+
+[data-anim="step"] {
+    opacity: 0.15;
+    transform: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+[data-anim="step"].anim-visible {
+    opacity: 1;
+}
+
+/* ============================================================
+   13. 响应式
    ============================================================ */
 @media (max-width: 768px) {
     .glitch-text {
-        font-size: 36px;
+        font-size: clamp(28px, 8vw, 42px);
         letter-spacing: 4px;
     }
 
@@ -605,28 +933,54 @@ footer p {
         padding: 0 12px;
     }
 
-    .about-grid,
+    .slide-section,
+    .hero {
+        padding: 4vh 4vw 5vh;
+    }
+
+    .split,
+    .grid-2-7-5,
+    .grid-2-6-6 {
+        grid-template-columns: 1fr;
+    }
+
     .projects-grid {
         grid-template-columns: 1fr;
     }
 
-    .section {
-        padding: 60px 16px 50px;
+    .grid-6 {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
     }
 
-    .section-title {
-        font-size: 22px;
-        margin-bottom: 32px;
+    .grid-4,
+    .grid-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-3-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .pipeline {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card .stat-nb {
+        font-size: clamp(28px, 8vw, 48px);
+    }
+
+    .chrome, .foot {
+        font-size: 10px;
     }
 }
 
-/* ============================================================
-   8. TODO 列表（方便你后续修改）
-   ============================================================
-   [ ] 替换头像链接（index.html 第 30 行）
-   [ ] 替换 GitHub 链接（index.html 第 41 行）
-   [ ] 填写项目 GitHub 链接（index.html 第 113、137 行）
-   [ ] 可选：替换项目缩略图为实际截图
-   [ ] 可选：增删技能标签
-   [ ] 可选：调整个人信息文案
-   ============================================================ */
+@media (max-width: 480px) {
+    .grid-6 {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline {
+        grid-template-columns: 1fr 1fr;
+    }
+}
